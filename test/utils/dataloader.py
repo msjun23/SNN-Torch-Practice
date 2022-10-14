@@ -29,3 +29,24 @@ def NMNIST_loader(batch_size=128):
     testloader  = DataLoader(cached_testset, batch_size=batch_size, collate_fn=tonic.collation.PadTensors())
     
     return trainloader, testloader
+
+def CIFAR10DVS_loader(batch_size=128):
+    sensor_size = tonic.datasets.CIFAR10DVS.sensor_size
+    
+    frame_transform = transforms.Compose([transforms.Denoise(filter_time=10000), 
+                                          transforms.ToFrame(sensor_size=sensor_size, time_window=1000)])
+    
+    # Augmentation transform
+    aug_transform = transforms.Compose([torch.from_numpy, 
+                                        torchvision.transforms.RandomRotation([-10,10])])
+    
+    # trainset = tonic.datasets.CIFAR10DVS(save_to='./data', transform=frame_transform)
+    trainset = tonic.datasets.CIFAR10DVS(save_to='./data')
+    # testset  = tonic.datasets.CIFAR10DVS(save_to='./data', transform=frame_transform)
+    cached_trainset = CachedDataset(trainset, cache_path='./cache/cifar10dvs/train', transform=aug_transform)
+    # cached_testset  = CachedDataset(testset, cache_path='./cache/cifar10dvs/test')  # not aug for test set
+    
+    trainloader = DataLoader(cached_trainset, batch_size=batch_size, collate_fn=tonic.collation.PadTensors(), shuffle=True)
+    # testloader  = DataLoader(cached_testset, batch_size=batch_size, collate_fn=tonic.collation.PadTensors(), shuffle=True)
+    
+    return trainloader
