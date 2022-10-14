@@ -1,5 +1,6 @@
 import torch
 import numpy as np
+from tqdm import tqdm
 
 from snntorch import functional as SF
 
@@ -14,7 +15,8 @@ def Train(device, net, trainloader, optimizer, loss_fn, epoch):
 
     # training loop
     net.train()
-    for batch_idx, (data, targets) in enumerate(iter(trainloader)): # train each batch
+    print(f'Epoch {epoch}')
+    for data, targets in tqdm(iter(trainloader)): # train each batch
         data = data.transpose(0,1)
         data = data.to(device)
         targets = targets.to(device)
@@ -35,13 +37,9 @@ def Train(device, net, trainloader, optimizer, loss_fn, epoch):
         epoch_loss += loss.item()       # sum up batch loss
         epoch_acc  += (acc * 100)       # sum up batch accuracy
 
-        if batch_idx % 10 == 0:
-            print(f'Epoch {epoch}, Progress {batch_idx/len(trainloader)*100.:.2f}% \nBatch Loss: {loss.item():.2f}')
-            print(f'Accuracy: {acc * 100:.2f}%\n')
-    
     epoch_loss /= len(trainloader)
     epoch_acc  /= len(trainloader)
-    print(f'Epoch {epoch} complete \nTrain set, Avg. Loss: {epoch_loss:.4f}, Avg. Accuracy: {epoch_acc:.4f}')
+    print(f'Train set, Avg. Loss: {epoch_loss:.4f}, Avg. Accuracy: {epoch_acc:.4f}')
     
     return epoch_loss, epoch_acc
 
@@ -51,7 +49,7 @@ def Test(device, net, testloader, loss_fn):
     
     net.eval()
     with torch.no_grad():
-        for data, targets in iter(testloader):       # test each batch
+        for data, targets in tqdm(iter(testloader)):       # test each batch
             data = data.transpose(0,1)
             data = data.to(device)
             targets = targets.to(device)
