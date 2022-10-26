@@ -13,7 +13,8 @@ class TestNet(nn.Module):
         spike_grad = surrogate.fast_sigmoid(slope=75)
         beta = 0.5
         
-        self.net = nn.Sequential(nn.Conv2d(2, 12, 5), # input ch: 2, output ch: 12, kernel size: 5x5
+        self.net = nn.Sequential(
+                    nn.Conv2d(2, 12, 5), # input ch: 2, output ch: 12, kernel size: 5x5
                     nn.MaxPool2d(2), 
                     snn.Leaky(beta=beta, spike_grad=spike_grad, init_hidden=True), 
                     nn.Conv2d(12, 32, 5), 
