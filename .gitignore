@@ -1,0 +1,6 @@
+Tutorial/cache/*
+Tutorial/data/*
+test/cache/
+test/data/*
+test/models/__pycache__/*
+test/utils/__pycache__/*
