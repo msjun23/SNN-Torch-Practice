@@ -73,8 +73,9 @@ if __name__=='__main__':
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
     print('device: ', device)
     net = TestNet().to(device)
-    trainloader, testloader = dataloader.NMNIST_loader(batch_size=128)
-    # trainloader = dataloader.CIFAR10DVS_loader(batch_size=128)
+    # trainloader, testloader = dataloader.NMNIST_loader(batch_size=128)
+    trainloader = dataloader.CIFAR10DVS_loader(batch_size=128)
+    print(trainloader)
     
     optimizer = torch.optim.Adam(net.parameters(), lr=2e-2, betas=(0.9, 0.999))
     loss_fn = SF.mse_count_loss(correct_rate=0.8, incorrect_rate=0.2)
@@ -91,9 +92,9 @@ if __name__=='__main__':
         acc_hist.append(acc)
         
         # Test
-        test_loss, test_acc = Test(device=device, net=net, testloader=testloader, loss_fn=loss_fn)
-        test_loss_hist.append(test_loss)
-        test_acc_hist.append(test_acc)
+        # test_loss, test_acc = Test(device=device, net=net, testloader=testloader, loss_fn=loss_fn)
+        # test_loss_hist.append(test_loss)
+        # test_acc_hist.append(test_acc)
 
     # Plot result
     fig = plt.figure(facecolor="w")
