@@ -28,7 +28,7 @@ class TestNet(nn.Module):
         spk_rec = []
         utils.reset(self.net)                       # reset hidden states for all LIF neurons in net
         
-        for step in range(x.size(0)):               # data.size(0) == # of time steps
+        for step in range(x.size(0)):               # data.size(0) == # of time steps == # of input data' channel
             spk_out, mem_out = self.net(x[step])    # for each time step
             spk_rec.append(spk_out)
             
