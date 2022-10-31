@@ -11,9 +11,9 @@ from torch.utils.data import DataLoader, Dataset
 def NMNIST_loader(batch_size=128):
     sensor_size = tonic.datasets.NMNIST.sensor_size
     
-    # time_window=1000 integrates events into 1000s bins
+    # time_window=1000 integrates events into 1000us bins
     # Denoise removes isolated, one-off events.
-    # If no event occurs within a neighbourhood of 1 pixel across filter_time microseconds, 
+    # If no event occurs within a neighbourhood of 1 pixel across filter_time microseconds(us), 
     # the event is filtered. Smaller filter_time will filter more events.
     frame_transform = transforms.Compose([transforms.Denoise(filter_time=10000), 
                                          transforms.ToFrame(sensor_size=sensor_size, time_window=1000)])
