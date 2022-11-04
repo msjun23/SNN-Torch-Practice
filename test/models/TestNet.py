@@ -21,7 +21,7 @@ class TestNet(nn.Module):
                     nn.MaxPool2d(2), 
                     snn.Leaky(beta=beta, spike_grad=spike_grad, init_hidden=True), 
                     nn.Flatten(), 
-                    nn.Linear(32*5*5, 10), 
+                    nn.Linear(32*29*29, 10), 
                     snn.Leaky(beta=beta, spike_grad=spike_grad, init_hidden=True, output=True))
         
     def forward(self, x):
