@@ -130,10 +130,10 @@ def CIFAR10DVS_loader():
 
 if __name__=='__main__':
     NMNIST_loader()
-    POKERDVS_loader()
-    DVSGesture_loader()
-    DVSLip_loader()
-    NCALTECH101_loader()
-    ASLDVS_loader()
-    CIFAR10DVS_loader()
+    # POKERDVS_loader()
+    # DVSGesture_loader()
+    # DVSLip_loader()
+    # NCALTECH101_loader()
+    # ASLDVS_loader()
+    # CIFAR10DVS_loader()
     

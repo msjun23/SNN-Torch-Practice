@@ -74,8 +74,8 @@ if __name__=='__main__':
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
     print('device: ', device)
     net = TestNet().to(device)
-    # trainloader, testloader = dataloader.NMNIST_loader(batch_size=128)
-    trainloader, testloader = dataloader.CIFAR10DVS_loader(batch_size=8)
+    trainloader, testloader = dataloader.NMNIST_loader(batch_size=128)
+    # trainloader, testloader = dataloader.CIFAR10DVS_loader(batch_size=8)
     # trainloader = dataloader.NCALTECH101_loader(batch_size=128)
     
     optimizer = torch.optim.Adam(net.parameters(), lr=2e-2, betas=(0.9, 0.999))
